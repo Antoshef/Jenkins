@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+      PATH = "/Users/antoshef/.local/share/nvm/v22.3.0/bin:$PATH"
+    }
+
     stages {
         stage('Build') {
             steps {
