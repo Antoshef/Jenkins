@@ -8,13 +8,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm use 22.3.0
+                    npm install
+                '''
                 echo 'Building..'
             }
         }
         stage('Test') {
             steps {
-                sh 'CI=true npm test'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm use 22.3.0
+                    CI=true npm test
+                '''
                 echo 'Testing..'
             }
         }
