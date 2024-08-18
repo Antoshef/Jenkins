@@ -37,8 +37,10 @@ pipeline {
                    git config user.email "antoshef21@gmail.com"
                    git fetch origin
                    git checkout dev || git checkout -b dev
-                   git checkout -B master origin/master
-                   git merge master
+                   rm -rf * .[!.]* || true
+                   cp -r build/*
+                   git add .
+                   git commit -m "Deploy build folder to dev branch"
                    git push origin dev
                 '''
             }
