@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh 'npm install'
             }
         }
         stage('Test') {
@@ -18,8 +19,19 @@ pipeline {
             }
         }
         stage('Deploy') {
+          when {
+            branch 'master'
+          }
             steps {
-                echo 'Deploying....'
+                echo 'Deploying to dev branch'
+                sh 'npm build'
+                sh '''
+                   git config user.name "Antoshef"
+                   git config user.email "antoshef21@gmail.com"
+                   git checkout dev
+                   git merge master
+                   git push origin dev
+                '''
             }
         }
     }
