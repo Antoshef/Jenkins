@@ -37,6 +37,7 @@ pipeline {
                    git config user.email "antoshef21@gmail.com"
                    git fetch origin
                    git checkout dev || git checkout -b dev
+                   git checkout -B master origin/master
                    git merge master
                    git push origin dev
                 '''
