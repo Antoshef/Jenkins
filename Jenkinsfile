@@ -6,11 +6,19 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Init') {
             steps {
                 echo 'Building..'
                 sh 'npm install'
             }
+        }
+        stage('Build') {
+          when {
+            branch 'master'
+          }
+          steps {
+            sh 'npm run build'
+          }
         }
         stage('Test') {
             steps {
@@ -25,10 +33,10 @@ pipeline {
             steps {
                 echo 'Deploying to dev branch'
                 sh '''
-                   npm run build
                    git config user.name "Antoshef"
                    git config user.email "antoshef21@gmail.com"
-                   git checkout dev
+                   git fetch origin
+                   git checkout dev || git checkout -b dev
                    git merge master
                    git push origin dev
                 '''
