@@ -24,8 +24,8 @@ pipeline {
           }
             steps {
                 echo 'Deploying to dev branch'
-                sh 'npm build'
                 sh '''
+                   npm build
                    git config user.name "Antoshef"
                    git config user.email "antoshef21@gmail.com"
                    git checkout dev
